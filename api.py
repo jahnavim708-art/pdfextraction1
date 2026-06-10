@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pdfplumber
-import pandas as pd
 import base64
 import tempfile
 import os
@@ -14,9 +13,12 @@ class PDFRequest(BaseModel):
 
 
 @app.post("/extract-table")
-async def pdf_to_json(request: PDFRequest):
+async def extract_tables(request: PDFRequest):
 
     try:
+        # -------------------------
+        # Decode PDF
+        # -------------------------
         pdf_bytes = base64.b64decode(request.pdf_base64)
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
@@ -24,48 +26,74 @@ async def pdf_to_json(request: PDFRequest):
             pdf_path = temp_pdf.name
 
         all_rows = []
-        header = None
 
+        # -------------------------
+        # Open PDF
+        # -------------------------
         with pdfplumber.open(pdf_path) as pdf:
 
             for page in pdf.pages:
 
-                tables = page.extract_tables()
+                # -------------------------
+                # 1. Try LINE-BASED TABLES
+                # -------------------------
+                tables = page.extract_tables({
+                    "vertical_strategy": "lines",
+                    "horizontal_strategy": "lines"
+                })
 
+                # -------------------------
+                # 2. Fallback: TEXT-BASED TABLES
+                # -------------------------
+                if not tables:
+                    tables = page.extract_tables({
+                        "vertical_strategy": "text",
+                        "horizontal_strategy": "text",
+                        "snap_tolerance": 3,
+                        "join_tolerance": 3,
+                        "intersection_tolerance": 5
+                    })
+
+                # -------------------------
+                # 3. Process tables
+                # -------------------------
                 for table in tables:
 
-                    if not table or len(table) < 2:
+                    if not table:
                         continue
 
-                    # Set header only once
-                    if header is None:
-                        header = table[0]
+                    for row in table:
 
-                    for row in table[1:]:
-
-                        if not any(row):
+                        if not row or not any(row):
                             continue
 
-                        # normalize row length
-                        if header:
-                            if len(row) < len(header):
-                                row += [""] * (len(header) - len(row))
-                            elif len(row) > len(header):
-                                row = row[:len(header)]
+                        # clean None values
+                        row = [c if c is not None else "" for c in row]
+
+                        # remove junk rows
+                        if len("".join(row).strip()) < 3:
+                            continue
 
                         all_rows.append(row)
 
+        # -------------------------
+        # Cleanup temp file
+        # -------------------------
         os.remove(pdf_path)
 
-        if not all_rows or not header:
-            raise HTTPException(status_code=404, detail="No table found")
+        # -------------------------
+        # Validation
+        # -------------------------
+        if not all_rows:
+            raise HTTPException(status_code=404, detail="No table data found")
 
-        df = pd.DataFrame(all_rows, columns=header)
-        df = df.fillna("")
-
+        # -------------------------
+        # Return JSON
+        # -------------------------
         return {
-            "total_rows": len(df),
-            "data": df.to_dict(orient="records")
+            "status": "success",
+            "total_rows": len(all_rows),
+            "data": all_rows
         }
 
     except Exception as e:
