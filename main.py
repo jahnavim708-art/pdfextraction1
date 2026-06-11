@@ -10,7 +10,7 @@ app = FastAPI()
 
 
 class PDFRequest(BaseModel):
-    #file_name: str
+    file_name: str
     pdf_base64: str
 
 
@@ -66,7 +66,7 @@ async def pdf_to_csv(request: PDFRequest):
 
         return {
             "status": "success",
-            #"file_name": request.file_name,
+            "file_name": request.file_name,
             "total_rows": len(json_data),
             "data": json_data
         }
