@@ -1,0 +1,83 @@
+[
+    {
+        "n Date": "01/11/2025 01/11/2025",
+        "Value Date Description": "TO TRANSFER-INB RTGS UTR NO: SBINR12025110104330978- RTGS INB: CR0APWHQH3 TRANSFER TO 4599109044308-JP Motor Pvt Ltd BOB 1031",
+        "Ret No./Cheque": "RTGS INB: CR0APWHQH3 TRANSFER TO 4599109044308 / -",
+        "Branch": "99922",
+        "Debit": "8,00,000.00",
+        "Credit": "",
+        "Balance": "36,825.65"
+    },
+    {
+        "n Date": "01/11/2025 01/11/2025",
+        "Value Date Description": "BULK POSTING-CR J P MOTOR PRIVATE LIMI UP119952 3110--",
+        "Ret No./Cheque": "-/ -",
+        "Branch": "16899",
+        "Debit": "",
+        "Credit": "6,822.91",
+        "Balance": "43,648.56"
+    },
+    {
+        "n Date": "01/11/2025|01/11/2025",
+        "Value Date Description": "BULK POSTING-CR JP MOTOR PRIVATE LIMITED 21344438 3110--",
+        "Ret No./Cheque": "-/-",
+        "Branch": "16899",
+        "Debit": "",
+        "Credit": "40,366.70",
+        "Balance": "84,015.26"
+    },
+    {
+        "n Date": "01/11/2025| 01/11/2025",
+        "Value Date Description": "BULK POSTING-CR JP MOTOR PRIVATE LIMITED UP127943 3110--",
+        "Ret No./Cheque": "-/ -",
+        "Branch": "16899",
+        "Debit": "",
+        "Credit": "1,992.00",
+        "Balance": "86,007.26"
+    },
+    {
+        "n Date": "01/11/2025| 01/11/2025",
+        "Value Date Description": "BY TRANSFER- /UTIB/riteshielt/UPI- TRANSFER FROM 4897738162095-",
+        "Ret No./Cheque": "TRANSFER FROM UPI/CR/530586658519/RITESH |4897738162095 / -",
+        "Branch": "16168",
+        "Debit": "",
+        "Credit": "20,100.00",
+        "Balance": "1,06,107.26"
+    },
+    {
+        "n Date": "01/11/2025| 01/11/2025",
+        "Value Date Description": "BY TRANSFER- UPI/CR/530501585638/Mr SUREN/IDIB/sam7800ale/UPI- TRANSFER FROM 4897738162095-",
+        "Ret No./Cheque": "TRANSFER FROM 4897738162095 / -",
+        "Branch": "16168",
+        "Debit": "",
+        "Credit": "30,200.00",
+        "Balance": "1,36,307.26"
+    },
+    {
+        "n Date": "01/11/2025| 01/11/2025",
+        "Value Date Description": "BY TRANSFER- SH/BKID/aloneriver/UPI- TRANSFER FROM 4897738162095-",
+        "Ret No./Cheque": "TRANSFER FROM UPI/CR/530599856010/AKHILE 4897738162095 / -",
+        "Branch": "16168",
+        "Debit": "",
+        "Credit": "9,904.00",
+        "Balance": "1,46,211.26"
+    },
+    {
+        "n Date": "01/11/2025| 01/11/2025",
+        "Value Date Description": "BY TRANSFER- UPI/CR/715098781945/NERJIS R/BARB/9451087357/Payme- TRANSFER FROM 4897738162095-",
+        "Ret No./Cheque": "TRANSFER FROM 4897738162095 / -",
+        "Branch": "16168",
+        "Debit": "",
+        "Credit": "8,601.00",
+        "Balance": "1,54,812.26"
+    },
+    {
+        "n Date": "01/11/2025| 01/11/2025",
+        "Value Date Description": "BY TRANSFER- UPI/CR/530595685313/AVADH SA/ICIC/9792222221/UP32J- TRANSFER FROM 4897738162095-",
+        "Ret No./Cheque": "TRANSFER FROM 4897738162095 / -",
+        "Branch": "16168",
+        "Debit": "",
+        "Credit": "10,590.00",
+        "Balance": "1,65,402.26"
+    }
+]
