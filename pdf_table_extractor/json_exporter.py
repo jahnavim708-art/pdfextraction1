@@ -1,9 +1,6 @@
 import json
 
 
-import json
-
-
 class JSONExporter:
 
     def center_x(self, bbox):
