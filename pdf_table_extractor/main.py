@@ -1,5 +1,5 @@
 import os
-
+import cv2
 from pdf_loader import PDFLoader
 from table_detector import TableDetector
 from ocr_engine import OCREngine
@@ -88,12 +88,12 @@ def main():
 
     exporter = JSONExporter()
 
-    pdf_path = r"C:\Users\Hello\Downloads\sbi.pdf"
+    pdf_path = r"C:\Users\Hello\Downloads\table.pdf"
 
     pages = pdf.load_pdf(pdf_path)
 
     # DEBUG
-    pages = pages[:1]
+    #pages = pages[:1]
 
     print(
         f"\nTotal pages being processed: "
@@ -101,6 +101,7 @@ def main():
     )
 
     all_records = []
+    
 
     for page_idx, page in enumerate(pages):
 
@@ -135,10 +136,22 @@ def main():
                     table_box
                 )
 
-                table_img = page[
-                    y1:y2,
-                    x1:x2
-                ]
+                x1, y1, x2, y2 = map(int, table_box)
+
+                pad = 15
+
+                x1 = max(0, x1 - pad)
+                y1 = max(0, y1 - pad)
+                x2 = min(page.shape[1], x2 + pad)
+                y2 = min(page.shape[0], y2 + pad)
+
+                table_img = page[y1:y2, x1:x2]
+                table_img = cv2.copyMakeBorder(
+                    table_img,
+                    10, 10, 10, 10,
+                    cv2.BORDER_CONSTANT,
+                    value=(255, 255, 255)
+                )
 
                 if table_img.size == 0:
 
@@ -218,6 +231,7 @@ def main():
                 )
 
     output_file = "output/result.json"
+    
 
     exporter.save(
         all_records,
