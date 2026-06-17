@@ -101,7 +101,6 @@ def main():
     )
 
     all_records = []
-    
 
     for page_idx, page in enumerate(pages):
 
@@ -131,13 +130,9 @@ def main():
 
             try:
 
-                x1, y1, x2, y2 = map(
-                    int,
-                    table_box
-                )
-
                 x1, y1, x2, y2 = map(int, table_box)
 
+                # 👉 ADD PADDING HERE
                 pad = 15
 
                 x1 = max(0, x1 - pad)
@@ -146,13 +141,7 @@ def main():
                 y2 = min(page.shape[0], y2 + pad)
 
                 table_img = page[y1:y2, x1:x2]
-                table_img = cv2.copyMakeBorder(
-                    table_img,
-                    10, 10, 10, 10,
-                    cv2.BORDER_CONSTANT,
-                    value=(255, 255, 255)
-                )
-
+                table_img = cv2.copyMakeBorder( table_img, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=(255, 255, 255) )
                 if table_img.size == 0:
 
                     print(
@@ -163,17 +152,6 @@ def main():
 
                 words = ocr.extract(
                     table_img
-                )
-                rows = reconstructor.build_table(words)
-
-                print("\nHEADER ROW:")
-
-                if rows:
-                    for cell in rows[0]["cells"]:
-                        print(cell["text"])
-
-                print(
-                    f"Rows reconstructed: {len(rows)}"
                 )
 
                 print(
@@ -231,7 +209,6 @@ def main():
                 )
 
     output_file = "output/result.json"
-    
 
     exporter.save(
         all_records,
