@@ -31,7 +31,7 @@ class TableDetector:
 
         results = self.processor.post_process_object_detection(
             outputs,
-            threshold=0.8,
+            threshold=0.6,
             target_sizes=torch.tensor(
                 [pil_img.size[::-1]]
             )
